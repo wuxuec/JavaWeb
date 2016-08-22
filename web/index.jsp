@@ -32,6 +32,9 @@
             <input type="submit" value ="Sign up">
         </form>
         
+        <p>Here is some test message</p>
+        <p>${message}</p>
+        
         
     </body>
 </html>

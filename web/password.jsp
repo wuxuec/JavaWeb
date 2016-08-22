@@ -23,6 +23,7 @@
             <input type="submit" value ="sure">
         </form>
         
+        <p>Here is some test message</p>
         <p>${message}</p>
         
         

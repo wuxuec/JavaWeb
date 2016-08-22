@@ -29,6 +29,9 @@
             <input type="submit" value ="logout">
         </form>
         
+        
+        <p>Here is some test message</p>
+        <p>${message}</p>
  
         
         

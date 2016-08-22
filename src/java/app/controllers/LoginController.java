@@ -6,10 +6,12 @@
 package app.controllers;
 
 import java.io.IOException;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -47,6 +49,14 @@ public class LoginController extends HttpServlet {
         
             request.setAttribute("username", username);
             request.setAttribute("password" , password);
+            
+            HttpSession httpSession = request.getSession();
+            
+            Date date = new Date();
+            String message = date.toString();
+            
+            httpSession.setAttribute("message", message);
+            
         } else if (action.equals("logout")) {
             url = "/info.jsp";
             

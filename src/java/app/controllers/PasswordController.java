@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -24,6 +25,11 @@ public class PasswordController extends HttpServlet {
             throws ServletException, IOException {
         
         String url = "/password.jsp";
+        
+        HttpSession httpSession = request.getSession();
+        String message = (String)httpSession.getAttribute("message");
+        
+        request.setAttribute("message", message);
         
         getServletContext().getRequestDispatcher(url)
                 .forward(request, response);
