@@ -18,6 +18,7 @@
         <p>You can login with your username and password</p>
         
         <form action="login" method="post">
+            <input type="hidden" name="action" value="login">
             <label>username:</label>
             <input type="text" name="username"> 
             <label>password:</label>

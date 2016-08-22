@@ -24,5 +24,13 @@
         </form>
         
         
+        <form action="login" method="post">
+            <input type="hidden" name="action" value="logout">
+            <input type="submit" value ="logout">
+        </form>
+        
+ 
+        
+        
     </body>
 </html>

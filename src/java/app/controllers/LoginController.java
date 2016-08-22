@@ -35,13 +35,29 @@ public class LoginController extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
         
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String action = request.getParameter("action");
         
         String url = "/info.jsp";
         
-        request.setAttribute("username", username);
-        request.setAttribute("password" , password);
+        if (action.equals("login")) {
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+        
+            url = "/info.jsp";
+        
+            request.setAttribute("username", username);
+            request.setAttribute("password" , password);
+        } else if (action.equals("logout")) {
+            url = "/info.jsp";
+            
+            String username = "you hava log out";
+            String password = "you hava log out";
+        
+            request.setAttribute("username", username);
+            request.setAttribute("password" , password);
+        }
+        
+        
         
         getServletContext().getRequestDispatcher(url)
                 .forward(request, response);

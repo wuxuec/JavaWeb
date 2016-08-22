@@ -16,9 +16,9 @@
         
         
         <form action="pwd" method="post">
-            <label>username:</label>
+            <label>origin::</label>
             <input type="text" name="origin"> 
-            <label>password:</label>
+            <label>new Password</label>
             <input type="text" name="new"><br>
             <input type="submit" value ="sure">
         </form>
