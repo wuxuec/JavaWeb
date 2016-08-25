@@ -20,11 +20,13 @@
         <form action="login" method="post">
             <input type="hidden" name="action" value="login">
             <label>username:</label>
-            <input type="text" name="username"> 
+            <input type="text" name="account" > 
             <label>password:</label>
             <input type="text" name="password"><br>
             <input type="submit" value ="Login">
         </form>
+        
+        <p>${warn}</p>
         
         <h2>Or, sign up here:</h2>
         

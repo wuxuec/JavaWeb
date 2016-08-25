@@ -16,12 +16,17 @@
         <h1>Hello World!</h1>
         
         <form action="register" method="post">
+            
+            <label>account:</label>
+            <input type="text" name="account">
             <label>username:</label>
             <input type="text" name="username"> 
             <label>password:</label>
             <input type="text" name="password"><br>
             <input type="submit" value ="submit">
         </form>
+        
+        <p>${warn}</p>
         
     </body>
 </html>

@@ -26,6 +26,8 @@
         <p>Here is some test message</p>
         <p>${message}</p>
         
+        <p>${warn}</p>
+        
         
     </body>
 </html>

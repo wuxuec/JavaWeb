@@ -9,13 +9,54 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Infomation</title>
+        <title>info</title>
+        
+        
+        
+        <script  type="text/javascript">
+            
+            var xmlHttp;
+            function updateOnlineNumber() {
+                
+                if (window.XMLHttpRequest) {
+                    xmlHttp = new XMLHttpRequest();
+                } else {
+                    xmlHttp = new ActiveObject("Microsoft.XMLHTTP");
+                }
+                
+                var url = "online";
+                xmlHttp.open("GET",url, true);
+                xmlHttp.onreadystatechange = callback;
+                xmlHttp.send();
+            }
+            
+            function callback() {
+                if (xmlHttp.readyState == 4) {
+                    if (xmlHttp.status == 200) {
+                        updateNumber();
+                    }
+                }
+            }
+            
+            function updateNumber() {
+                var number = xmlHttp.responseText;
+                var userMessageElement = document
+                        .getElementById("onlineNumber");
+                userMessageElement.innerHTML = "<font color=\"red\">" 
+                        + number + " </font>";
+                
+
+            }
+            
+           //window.setInterval(updateOnlineNumber, 1000);
+            
+        </script>
     </head>
     <body>
         <h1>Hello World!</h1>
         
-        <span>${username}</span><br>
-        <span>${password}</span>
+        <span>${account}</span><br>
+        <span>${username}</span>
         
         <h2>To change the password!</h2>
         
@@ -32,6 +73,13 @@
         
         <p>Here is some test message</p>
         <p>${message}</p>
+        
+        <p>${warn}</p>
+        
+        
+         <h1>Update the number like this:</h1>
+        
+        <div id ="onlineNumber"></div>
  
         
         
