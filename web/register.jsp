@@ -10,23 +10,41 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register</title>
-        <link rel="stylesheet" href="styles/main.css" type="text/css"/>   
+       
+        <script  type="text/javascript" src="script/onlineNumber.js"></script>
+        <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
     </head>
     <body>
-        <h1>Hello World!</h1>
+        
+        <div class="container">
+        <h1>Thanks for registering our website</h1>
+        
+        <p>You can fill some message to sign up</p>
+        
+        <p><font size="4">The online number is:</font>
+            <button type="button" id ="onlineNumber" class="btn btn-info">...</button>
+        </p>
         
         <form action="register" method="post">
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Add an account</label>
+                <input type="text" name="account" class="form-control" id="exampleInputEmail1" placeholder="account">
+            </div>
             
-            <label>account:</label>
-            <input type="text" name="account">
-            <label>username:</label>
-            <input type="text" name="username"> 
-            <label>password:</label>
-            <input type="text" name="password"><br>
-            <input type="submit" value ="submit">
+            <div class="form-group">
+                <label for="exampleInputPassword1">Enter a username</label><br>
+                <input type="text" name="username" class="form-control" id="exampleInputEmail1" placeholder="username"> 
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Enter a password</label><br>
+                <input type="text" name="password" class="form-control" id="exampleInputEmail1" placeholder="password"> 
+            </div>
+            <p class="bg-warning"><font size="4">${warn}</font></p>
+            
+            <input type="submit" value ="Sign Up" class="btn btn-danger">
         </form>
-        
-        <p>${warn}</p>
+        </div>
         
     </body>
 </html>

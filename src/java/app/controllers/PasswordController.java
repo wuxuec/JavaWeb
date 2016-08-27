@@ -1,11 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * 处理用户修改密码的请求的Servlet
+ *
+ * @version 	1.0
+ * @author 	武家辉
  */
 package app.controllers;
 
 import app.data.Database;
+import app.util.CookieUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,10 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author WuJiahui
- */
+
 public class PasswordController extends HttpServlet {
 
     
@@ -26,19 +25,13 @@ public class PasswordController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
-        Cookie[] cookies = request.getCookies();
-        String cookieName = "userCookie";
-        String cookieValue = "";
-        for (Cookie cookie: cookies) {
-            if (cookieName.equals(cookie.getName()))
-                cookieValue = cookie.getValue();
-        }
-        
         String url = "/password.jsp";
-        if (cookieValue.equals("")) {
+        
+        CookieUtil cookieUtil = new CookieUtil();
+        boolean isLogin = cookieUtil.ifHasLogin(request);
+        if (!isLogin) {
             url = "/index.jsp";
-            request.setAttribute("warn", "Please login again!");
+            request.setAttribute("warn", "You have to login again");
         } 
         
         getServletContext().getRequestDispatcher(url)
@@ -53,28 +46,24 @@ public class PasswordController extends HttpServlet {
         
         String origin = request.getParameter("origin");
         String newPassword = request.getParameter("new");
-        
-        Cookie[] cookies = request.getCookies();
-        String cookieName = "userCookie";
-        String account = "";
-        for (Cookie cookie: cookies) {
-            if (cookieName.equals(cookie.getName()))
-                account = cookie.getValue();
-        }
-        
         String url = "/password.jsp";
         Database database = Database.getInstance();
-        if (account.equals("")) {
+        
+        CookieUtil cookieUtil = new CookieUtil();
+        String cookieName = "userCookie";
+        String account = cookieUtil.getCookieValueByName(request, cookieName);
+        
+        if (account == null) {
             url = "/index.jsp";
-            request.setAttribute("warn", "Please login again!");
+            request.setAttribute("warn", "Maybe it's time out, please login again!");
         } else {
             if (database.verify(account, origin)) {
                 database.edit(account, newPassword);
                 url = "/info.jsp";
-                request.setAttribute("warn", "Success edit the password");
+                request.setAttribute("warn", "Success to edit the password");
             } else {
                 url = "/password.jsp";
-                request.setAttribute("warn", "original password is wrong.");
+                request.setAttribute("warn", "old password is wrong.");
             }
         }
             
@@ -83,5 +72,4 @@ public class PasswordController extends HttpServlet {
         
     }
 
-    
 }

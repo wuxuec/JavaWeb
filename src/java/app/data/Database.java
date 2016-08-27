@@ -1,7 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * 负责数据库文件信息的增删改查的DataBase
+ *
+ * @version 	1.0
+ * @author 	武家辉
  */
 package app.data;
 
@@ -12,17 +13,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 
-/**
- *
- * @author WuJiahui
- */
 public class Database {
     
     private static Database database = null;
     private static File file = null;
     
-    public synchronized static Database getInstance
-        () {
+    public synchronized static Database getInstance() {
             
         if (database == null) {
             database = new Database();
@@ -32,11 +28,11 @@ public class Database {
     }
     
     private Database() {
-//        String path = servletContext.getRealPath("/");
+
         String path = this.getClass().getClassLoader().getResource("/")
                 .getPath() + "information.txt";
-        //file =  new File(path+"\\data\\information.txt");
         file = new File(path);
+        
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -44,7 +40,7 @@ public class Database {
                 ex.printStackTrace();
             }
         }
-        System.out.println("app.data.Database.<init>()"+path); //test
+      
     }
     
     public boolean queryIfExist(String account) throws IOException{
@@ -55,17 +51,14 @@ public class Database {
 
 	while ((record = infoFile.readLine()) != null) {
             String[] info = record.toString().split("\\|");
-//            System.out.println(info[0]);
             if (info[0].equals(account)) {
                 infoFile.close();
                 return true;
             }
-            
         }
         
-        //System.out.println(account);
-        
 	infoFile.close();
+        
         return result;
     }
     
@@ -84,6 +77,7 @@ public class Database {
         }
 		
 	infoFile.close();
+        
         return username;
         
     }
@@ -110,6 +104,7 @@ public class Database {
         }
 		
 	infoFile.close();
+        
         return result;
     }
     
@@ -119,14 +114,13 @@ public class Database {
         RandomAccessFile infoFile = new RandomAccessFile(file, "rw");
         String record;
         long offset = 0;
+        
         while ((record = infoFile.readLine()) != null) {
             offset += record.getBytes().length+2;
         }
-        infoFile.seek(offset);
-//        infoFile.writeBytes(String.valueOf(i)+"|name|account|correct!\r\n");
-        record = account+"|"+password+"|"+username+"\r\n";
-//        System.out.println("app.data.Database.insert()"+record);
         
+        infoFile.seek(offset);
+        record = account+"|"+password+"|"+username+"\r\n";
         infoFile.writeBytes(record);
         infoFile.close();
         

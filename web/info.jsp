@@ -10,78 +10,56 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>info</title>
-        
-        
-        
-        <script  type="text/javascript">
-            
-            var xmlHttp;
-            function updateOnlineNumber() {
-                
-                if (window.XMLHttpRequest) {
-                    xmlHttp = new XMLHttpRequest();
-                } else {
-                    xmlHttp = new ActiveObject("Microsoft.XMLHTTP");
-                }
-                
-                var url = "online";
-                xmlHttp.open("GET",url, true);
-                xmlHttp.onreadystatechange = callback;
-                xmlHttp.send();
-            }
-            
-            function callback() {
-                if (xmlHttp.readyState == 4) {
-                    if (xmlHttp.status == 200) {
-                        updateNumber();
-                    }
-                }
-            }
-            
-            function updateNumber() {
-                var number = xmlHttp.responseText;
-                var userMessageElement = document
-                        .getElementById("onlineNumber");
-                userMessageElement.innerHTML = "<font color=\"red\">" 
-                        + number + " </font>";
-                
-
-            }
-            
-           //window.setInterval(updateOnlineNumber, 1000);
-            
-        </script>
+        <script  type="text/javascript" src="script/onlineNumber.js"></script>
+       
+        <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
     </head>
     <body>
-        <h1>Hello World!</h1>
         
-        <span>${account}</span><br>
-        <span>${username}</span>
+        <div class="container">
+        <h1>Your Account page:</h1>
         
-        <h2>To change the password!</h2>
+        <p>this is some infomation about your account:</p>
         
-        <form action="pwd" method="get">
-            <input type="submit" value ="Edit pwd">
-        </form>
-        
+        <p><font size="4">The online number is:</font>
+            <button type="button" id ="onlineNumber" class="btn btn-info">...</button>
+        </p>
         
         <form action="login" method="post">
-            <input type="hidden" name="action" value="logout">
-            <input type="submit" value ="logout">
+            <fieldset disabled>
+
+            <div class="form-group">
+                <label for="disabledTextInput">Your Account</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder=${account}>
+            </div>
+
+            <div class="form-group">
+                <label for="disabledTextInput">Your Username</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder=${username}>
+            </div>
+
+            <div class="form-group">
+                <label for="disabledTextInput">Your Login Time</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder=${message}>
+            </div>
+            
+            <p class="bg-warning"><font size="4">${warn}</font></p>
+            
+            </fieldset>
         </form>
+
+        <form action="login" method="post">
+            <input type="hidden" name="action" value="logout">
+            <input type="submit" value ="logout" class="btn btn-danger">
+        </form>
+        <br>
         
-        
-        <p>Here is some test message</p>
-        <p>${message}</p>
-        
-        <p>${warn}</p>
-        
-        
-         <h1>Update the number like this:</h1>
-        
-        <div id ="onlineNumber"></div>
- 
-        
+        <p><font size="4">To change your password: </font></p>
+
+        <form action="pwd" method="get">
+            <input type="submit" value ="Edit password" class="btn btn-warning">
+        </form>
+        </div>
         
     </body>
 </html>

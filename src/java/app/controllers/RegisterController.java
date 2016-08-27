@@ -1,11 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * 处理注册请求的Servlet
+ *
+ * @version 	1.0
+ * @author 	武家辉
  */
 package app.controllers;
 
 import app.data.Database;
+import app.util.CookieUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,10 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author WuJiahui
- */
+
 public class RegisterController extends HttpServlet {
 
     @Override
@@ -26,20 +25,13 @@ public class RegisterController extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
         
-        Cookie[] cookies = request.getCookies();
-        String cookieName = "userCookie";
-        String cookieValue = "";
-        for (Cookie cookie: cookies) {
-            if (cookieName.equals(cookie.getName()))
-                cookieValue = cookie.getValue();
-        }
+        String url = "/register.jsp";
         
-        String url = "";
-        if (cookieValue.equals("")) {
-            url = "/register.jsp";
-        } else {
+        CookieUtil cookieUtil = new CookieUtil();
+        boolean isLogin = cookieUtil.ifHasLogin(request);
+        if (isLogin) {
             url = "/info.jsp";
-            request.setAttribute("warn", "Logout to sign up");
+            request.setAttribute("warn", "You can't register after you login");
         }
         
         getServletContext().getRequestDispatcher(url)
@@ -56,29 +48,18 @@ public class RegisterController extends HttpServlet {
         String account = request.getParameter("account");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        
-        Database database = Database.getInstance();
-        
-        boolean status = false;
-        
         String url = "/register.jsp";
         
+        Database database = Database.getInstance(); 
         if (database.queryIfExist(account)) {
-            request.setAttribute("warn", "account is exist");
-            
+            request.setAttribute("warn", "this account name has been sign up");
         } else if (password.length() != 8){
-            request.setAttribute("warn", "password too long!");
-            
+            request.setAttribute("warn", "password has to be 8 char!");
         } else {
             database.insert(account, password, username);
-            request.setAttribute("warn", "success, you can login now");
+            request.setAttribute("warn", "success! you can login now");
             url = "/index.jsp";
         }
-//        System.out.println("app.controllers.RegisterController.doPost()"
-//                +username+password);
-//        database.insert(username, password, password);
-//        database.edit(username, password);
-          
         
         getServletContext().getRequestDispatcher(url)
                 .forward(request, response);
