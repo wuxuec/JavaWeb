@@ -51,11 +51,7 @@
             <input type="submit" value ="sure" class="btn btn-success">
         </form>
         <br>
-        <p><font size="4">Or, sign up here: </font></p>
-        
-        <form action="register" method="get">
-            <input type="submit" value ="Sign up" class="btn btn-primary">
-        </form>
+       
         </div>
         
     </body>

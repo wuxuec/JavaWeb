@@ -18,6 +18,7 @@ public class Database {
     private static Database database = null;
     private static File file = null;
     
+    //单例模式，只实例化一个静态对象提供操作
     public synchronized static Database getInstance() {
             
         if (database == null) {
@@ -27,6 +28,7 @@ public class Database {
         return database;
     }
     
+    //构造函数，打开数据文件，如果不存在则直接创建
     private Database() {
 
         String path = this.getClass().getClassLoader().getResource("/")
@@ -43,6 +45,7 @@ public class Database {
       
     }
     
+    //根据账户名称来查找文件中是否已存在此账户
     public boolean queryIfExist(String account) throws IOException{
         
         boolean result = false;	
@@ -62,6 +65,7 @@ public class Database {
         return result;
     }
     
+    //根据账户来查找该账户的账户的名称
     public String queryUserName(String account) throws IOException{
         
         String username = "";
@@ -82,7 +86,7 @@ public class Database {
         
     }
         
-    
+    //根据账户和密码来判断是否通过验证，返回一个boolean值
     public boolean verify(String account, String password)
             throws IOException {
         
@@ -108,24 +112,42 @@ public class Database {
         return result;
     }
     
-    public void insert(String account, String password, String username)
-            throws IOException{
+    //将新的账户信息插入到数据文件中
+    public synchronized void insert(String account, String password, String username) {
         
-        RandomAccessFile infoFile = new RandomAccessFile(file, "rw");
-        String record;
-        long offset = 0;
+        RandomAccessFile infoFile = null;
         
-        while ((record = infoFile.readLine()) != null) {
-            offset += record.getBytes().length+2;
+        try {
+            infoFile = new RandomAccessFile(file, "rw");
+            String record;
+            long offset = 0;
+        
+            while ((record = infoFile.readLine()) != null ) {
+                offset += record.getBytes().length+2;
+            }
+            
+            infoFile.seek(offset);
+            record = account+"|"+password+"|"+username+"\r\n";
+            infoFile.write(record.getBytes());
+            infoFile.close();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+            
+        } finally {
+            if (infoFile != null) {
+                try {
+                    infoFile.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
         }
         
-        infoFile.seek(offset);
-        record = account+"|"+password+"|"+username+"\r\n";
-        infoFile.writeBytes(record);
-        infoFile.close();
         
     }
     
+    //根据新旧密码来更新数据文件中的密码信息
     public void edit(String account, String newPassword)
             throws IOException{
         

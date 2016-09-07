@@ -33,7 +33,8 @@ function updateNumber() {
     var number = xmlHttp.responseText;
     var userMessageElement = document
         .getElementById("onlineNumber");
-    userMessageElement.innerHTML =   number;
+    userMessageElement.innerHTML = number;
+    
 }
             
 window.setInterval(updateOnlineNumber, 2000);

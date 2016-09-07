@@ -50,6 +50,13 @@ public class RegisterController extends HttpServlet {
         String password = request.getParameter("password");
         String url = "/register.jsp";
         
+        if (account == null || username == null || password == null) {
+            request.setAttribute("warn", "unvalid input");
+            getServletContext().getRequestDispatcher(url)
+                .forward(request, response);
+            return;
+        }
+        
         Database database = Database.getInstance(); 
         if (database.queryIfExist(account)) {
             request.setAttribute("warn", "this account name has been sign up");

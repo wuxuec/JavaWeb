@@ -30,15 +30,11 @@ public class OnlineController extends HttpServlet {
             throws ServletException, IOException {
         
         int num = Admin.getInstance().getOnlineNumber();
-        
+//        System.out.println(String.valueOf(num)+" is from "
+//                +req.getSession().getId());
         resp.setContentType("text");
         resp.getWriter().write(String.valueOf(num));
         
     }
-    
-    
 
-   
-
-    
 }

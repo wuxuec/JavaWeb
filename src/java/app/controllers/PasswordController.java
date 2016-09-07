@@ -51,7 +51,8 @@ public class PasswordController extends HttpServlet {
         
         CookieUtil cookieUtil = new CookieUtil();
         String cookieName = "userCookie";
-        String account = cookieUtil.getCookieValueByName(request, cookieName);
+//        String account = cookieUtil.getCookieValueByName(request, cookieName);
+        String account = (String)request.getSession().getAttribute("account");
         
         if (account == null) {
             url = "/index.jsp";

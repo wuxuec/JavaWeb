@@ -14,21 +14,24 @@ import javax.servlet.http.HttpSession;
 public class CookieUtil {
     
     public boolean ifHasLogin(HttpServletRequest request) {
-        boolean result = false;
         
         HttpSession session = request.getSession();
         if (session.getAttribute("account") == null) {
             return false;
         } 
         
+        return true;
+    }
+    
+    public boolean ifCookiesExist(HttpServletRequest request) {
         String cookieName = "userCookie";
         String cookieValue = getCookieValueByName(request, cookieName);
         
         if (cookieValue != null) {
-            result = true;
+            return true;
         }
         
-        return result;
+        return false;
     }
     
     public String getCookieValueByName(HttpServletRequest request,

@@ -29,6 +29,8 @@ public class LoginController extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
         
+        //System.err.println("Login get");
+        
         CookieUtil cookieUtil = new CookieUtil();
         boolean isLogin = cookieUtil.ifHasLogin(request);
         
@@ -49,12 +51,19 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
+        
+        //System.err.println("Login post");
 
         String url = "/info.jsp";
         
         String action = request.getParameter("action");
         if (action.equals("login")) {
-            boolean success = login(request, response);
+            CookieUtil cookieUtil = new CookieUtil();
+            boolean success = cookieUtil.ifHasLogin(request);
+            if (!success) {
+                success = login(request, response);
+            }
+            
             if (!success) {
                 url = "/index.jsp";
             }
@@ -90,7 +99,8 @@ public class LoginController extends HttpServlet {
         
         HttpSession httpSession = request.getSession();
         Date date = new Date();
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
+        SimpleDateFormat dateFormat = 
+                new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
         String message = dateFormat.format(date);
         
         String username = database.queryUserName(account);
@@ -100,9 +110,13 @@ public class LoginController extends HttpServlet {
         httpSession.setAttribute("message", message);
                 
         Cookie cookie = new Cookie("userCookie", account);
+        Cookie pwdCookie = new Cookie("pwdCookie", password);
         cookie.setMaxAge(60*5);
+        pwdCookie.setMaxAge(60*5);
         cookie.setPath("/");
+        pwdCookie.setPath("/");
         response.addCookie(cookie);
+        response.addCookie(pwdCookie);
                 
         Admin.getInstance().addOnlineNumber();
            
