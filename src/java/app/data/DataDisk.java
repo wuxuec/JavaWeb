@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -61,6 +63,7 @@ public class DataDisk {
                 return parseRecordToUser(record);
             }
         }
+        
 	infoFile.close();
         
         return null;
@@ -73,6 +76,12 @@ public class DataDisk {
         return user;
     }
     
+    private String convertUserToRecord(User user) {
+        String record = user.getAccount()+"|"
+                        +user.getPassword()+"|"+user.getUsername()+"\r\n";
+        return record;
+    }
+    
     public void writeToDisk(ConcurrentHashMap<String, User> writeCache)
             throws FileNotFoundException, IOException {
         
@@ -81,27 +90,39 @@ public class DataDisk {
         long offset = 0;
         
         while ((record = infoFile.readLine()) != null) {
+            
             String[] info = record.split("\\|");
             
             if (writeCache.containsKey(info[0])) {
+                
                 infoFile.seek(offset);
                 User user = writeCache.get(info[0]);
-                infoFile.writeBytes(user.getAccount()+"|"
-                        +user.getPassword()+"|"+user.getUsername()+"\r\n");
+                record = convertUserToRecord(user);
+                infoFile.seek(offset);
+                infoFile.writeBytes(record);
                 
+                offset += record.getBytes().length;
+                
+                writeCache.remove(info[0]);
+                
+            } else {
+                offset += record.getBytes().length+2;
             }
             
-            if (info[0].equals(account)) {
-                infoFile.seek(offset);
-                infoFile.writeBytes(info[0]+"|"+newPassword+"|"+info[2]+"\r\n");
-                break;
-            } else {
-                 offset += record.getBytes().length+2;
-            }
         }
         
-        infoFile.close();
+        infoFile.seek(offset);
         
+        Iterator<Map.Entry<String, User>> iterator = writeCache
+                .entrySet().iterator();
+        
+        while (iterator.hasNext()) {
+            record = convertUserToRecord(iterator.next().getValue());
+            infoFile.write(record.getBytes());
+        }
+        
+        writeCache.clear();
+        infoFile.close();
         
     }
     

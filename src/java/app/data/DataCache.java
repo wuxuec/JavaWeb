@@ -33,9 +33,6 @@ public class DataCache {
         dataDisk = DataDisk.getInstance();
     }
     
-    private void addToCache(User user) {
-        
-    }
     
     public User query(String account) throws IOException {
         
@@ -56,22 +53,26 @@ public class DataCache {
     
     }
     
-    public void insert(User user) {
+    public void insert(User user) throws IOException {
         
         writeCache.put(user.getAccount(), user);
         
         if (writeCache.size() >= 150) {
+            readCache.putAll(writeCache);
             dataDisk.writeToDisk(writeCache);
+            
+        } else {
+            readCache.put(user.getAccount(), user);
         }
-        
-        readCache.put(user.getAccount(), user);
-                  
+                 
     }
     
     public void edit(String account, String password) throws IOException {
         
         User user = query(account);
         user.setPassword(password);
+        writeCache.put(account, user);
+        readCache.put(account, user);
         
     }
     
