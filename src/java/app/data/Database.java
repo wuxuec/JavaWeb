@@ -120,11 +120,9 @@ public class Database {
         try {
             infoFile = new RandomAccessFile(file, "rw");
             String record;
-            long offset = 0;
-        
-            while ((record = infoFile.readLine()) != null ) {
-                offset += record.getBytes().length+2;
-            }
+            long offset = infoFile.length();
+//            System.out.println("app.data.Database.insert() off : "+ off);
+//            System.out.println("app.data.Database.insert()offset : "+ offset);
             
             infoFile.seek(offset);
             record = account+"|"+password+"|"+username+"\r\n";
