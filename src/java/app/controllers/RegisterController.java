@@ -6,7 +6,7 @@
  */
 package app.controllers;
 
-import app.data.Database;
+import app.data.DataBase;
 import app.util.CookieUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -57,7 +57,7 @@ public class RegisterController extends HttpServlet {
             return;
         }
         
-        Database database = Database.getInstance(); 
+        DataBase database = DataBase.getInstance(); 
         if (database.queryIfExist(account)) {
             request.setAttribute("warn", "this account name has been sign up");
         } else if (password.length() != 8){

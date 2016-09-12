@@ -6,7 +6,7 @@
  */
 package app.controllers;
 
-import app.data.Database;
+import app.data.DataBase;
 import app.util.CookieUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -47,7 +47,7 @@ public class PasswordController extends HttpServlet {
         String origin = request.getParameter("origin");
         String newPassword = request.getParameter("new");
         String url = "/password.jsp";
-        Database database = Database.getInstance();
+        DataBase database = DataBase.getInstance();
         
         CookieUtil cookieUtil = new CookieUtil();
         String cookieName = "userCookie";

@@ -13,23 +13,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 
-public class Database {
+public class DataBase {
     
-    private static Database database = null;
+    private static DataBase database = null;
     private static File file = null;
     
+    
     //单例模式，只实例化一个静态对象提供操作
-    public synchronized static Database getInstance() {
+    public synchronized static DataBase getInstance() {
             
         if (database == null) {
-            database = new Database();
+            database = new DataBase();
         }
         
         return database;
     }
     
     //构造函数，打开数据文件，如果不存在则直接创建
-    private Database() {
+    private DataBase() {
 
         String path = this.getClass().getClassLoader().getResource("/")
                 .getPath() + "information.txt";
@@ -121,8 +122,8 @@ public class Database {
             infoFile = new RandomAccessFile(file, "rw");
             String record;
             long offset = infoFile.length();
-//            System.out.println("app.data.Database.insert() off : "+ off);
-//            System.out.println("app.data.Database.insert()offset : "+ offset);
+//            System.out.println("app.data.DataBase.insert() off : "+ off);
+//            System.out.println("app.data.DataBase.insert()offset : "+ offset);
             
             infoFile.seek(offset);
             record = account+"|"+password+"|"+username+"\r\n";

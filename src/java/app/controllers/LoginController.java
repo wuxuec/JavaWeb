@@ -8,7 +8,7 @@
 package app.controllers;
 
 import app.util.Admin;
-import app.data.Database;
+import app.data.DataBase;
 import app.util.CookieUtil;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -83,7 +83,7 @@ public class LoginController extends HttpServlet {
         boolean success = true;
         String account = request.getParameter("account");
         String password = request.getParameter("password");
-        Database database = Database.getInstance();
+        DataBase database = DataBase.getInstance();
             
         if (database.queryIfExist(account)) {
             success = database.verify(account, password);
