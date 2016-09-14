@@ -7,6 +7,7 @@
 package app.controllers;
 
 import app.data.DataBase;
+import app.model.User;
 import app.util.CookieUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -58,7 +59,8 @@ public class RegisterController extends HttpServlet {
         }
         
         DataBase database = DataBase.getInstance(); 
-        if (database.queryIfExist(account)) {
+        User user = database.query(account);
+        if (user != null) {
             request.setAttribute("warn", "this account name has been sign up");
         } else if (password.length() != 8){
             request.setAttribute("warn", "password has to be 8 char!");

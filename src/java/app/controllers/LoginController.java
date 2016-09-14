@@ -9,6 +9,7 @@ package app.controllers;
 
 import app.util.Admin;
 import app.data.DataBase;
+import app.model.User;
 import app.util.CookieUtil;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -19,7 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.smartcardio.ResponseAPDU;
 
 
 public class LoginController extends HttpServlet {
@@ -62,6 +62,7 @@ public class LoginController extends HttpServlet {
             boolean success = cookieUtil.ifHasLogin(request);
             if (!success) {
                 success = login(request, response);
+                
             }
             
             if (!success) {
@@ -84,9 +85,12 @@ public class LoginController extends HttpServlet {
         String account = request.getParameter("account");
         String password = request.getParameter("password");
         DataBase database = DataBase.getInstance();
+        
+        User user = database.query(account);
             
-        if (database.queryIfExist(account)) {
-            success = database.verify(account, password);
+        if (user != null) {
+            success = user.getPassword().equals(password);
+            
             if (!success) {
                 request.setAttribute("warn",
                         "password wrong, password have to be 8 char");
@@ -103,7 +107,7 @@ public class LoginController extends HttpServlet {
                 new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
         String message = dateFormat.format(date);
         
-        String username = database.queryUserName(account);
+        String username = user.getUsername();
                 
         httpSession.setAttribute("account", account);
         httpSession.setAttribute("username", username);

@@ -7,6 +7,7 @@
 package app.controllers;
 
 import app.data.DataBase;
+import app.model.User;
 import app.util.CookieUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -58,7 +59,9 @@ public class PasswordController extends HttpServlet {
             url = "/index.jsp";
             request.setAttribute("warn", "Maybe it's time out, please login again!");
         } else {
-            if (database.verify(account, origin)) {
+            User user = database.query(account);
+            
+            if (user.getPassword().equals(origin)) {
                 database.edit(account, newPassword);
                 url = "/info.jsp";
                 request.setAttribute("warn", "Success to edit the password");

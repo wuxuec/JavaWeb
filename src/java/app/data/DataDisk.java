@@ -45,7 +45,7 @@ public class DataDisk {
         }
     }
     
-    public User query(String account) throws IOException{
+    public synchronized User query(String account) throws IOException{
         
         RandomAccessFile infoFile = new RandomAccessFile(file, "rw");
         
@@ -82,8 +82,12 @@ public class DataDisk {
         return record;
     }
     
-    public void writeToDisk(ConcurrentHashMap<String, User> writeCache)
+    public synchronized void writeToDisk(ConcurrentHashMap<String, User> writeCache)
             throws FileNotFoundException, IOException {
+        
+        if (writeCache.size() == 0) {
+            return;
+        }
         
         RandomAccessFile infoFile = new RandomAccessFile(file, "rw");
         String record;

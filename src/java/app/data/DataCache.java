@@ -34,11 +34,11 @@ public class DataCache {
     }
     
     
-    public User query(String account) throws IOException {
+    public synchronized User query(String account) throws IOException {
         
-        if (readCache.contains(account) ) {
+        if (readCache.containsKey(account) ) {
             return readCache.get(account);
-        } else if (writeCache.contains(account)) {
+        } else if (writeCache.containsKey(account)) {
             return writeCache.get(account);
         }
         
@@ -54,15 +54,17 @@ public class DataCache {
     }
     
     public void insert(User user) throws IOException {
+//        System.out.println(writeCache.size()); //test
         
         writeCache.put(user.getAccount(), user);
         
-        if (writeCache.size() >= 150) {
+        if (writeCache.size() >= 500) {
             readCache.putAll(writeCache);
             dataDisk.writeToDisk(writeCache);
             
         } else {
             readCache.put(user.getAccount(), user);
+            
         }
                  
     }
@@ -76,7 +78,16 @@ public class DataCache {
         
     }
     
-    
+    public void remove(String account) throws IOException {
+        
+        if (writeCache.size() > 0) {
+            readCache.putAll(writeCache);
+            dataDisk.writeToDisk(writeCache);
+        }
+        
+         readCache.remove(account);
+        
+    }
     
     
 }
