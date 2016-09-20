@@ -1,9 +1,14 @@
-/**
- * 处理注册请求的Servlet
- *
- * @version 	1.0
- * @author 	武家辉
- */
+/*
+* 模块:   控制层servlet <br>
+* 用途:   处理注册请求 <br>
+* 作者:   武家辉 wujh6@asiainfo.com <br>
+* 日期:   2016.08.16 <br>
+* 版权:   Copyright (c) 2004-2008 AsiaInfo Technologies(China),Inc. <br>
+* 版本:   RCS: $Id$ <br>
+* 说明:	 <br>
+* 历史:	武家辉 2016.09.15 完善功能，增加注释 <br>
+*/
+
 package app.controllers;
 
 import app.data.DataBase;

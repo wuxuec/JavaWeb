@@ -1,9 +1,14 @@
-/**
- * 管理网站登陆和推出的操作的Servlet
- *
- * @version 	1.0
- * @author 	武家辉
- */
+/*
+* 模块:   控制层servlet <br>
+* 用途:   处理登录请求 <br>
+* 作者:   武家辉 wujh6@asiainfo.com <br>
+* 日期:   2016.08.16 <br>
+* 版权:   Copyright (c) 2004-2008 AsiaInfo Technologies(China),Inc. <br>
+* 版本:   RCS: $Id$ <br>
+* 说明:	 <br>
+* 历史:	武家辉 2016.09.15 完善功能，修改验证逻辑 <br>
+*/
+
 
 package app.controllers;
 
@@ -28,8 +33,6 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
-        
-        //System.err.println("Login get");
         
         CookieUtil cookieUtil = new CookieUtil();
         boolean isLogin = cookieUtil.ifHasLogin(request);
@@ -95,7 +98,7 @@ public class LoginController extends HttpServlet {
                 request.setAttribute("warn",
                         "password wrong, password have to be 8 char");
                 return false;
-            } 
+            }
         } else {
             request.setAttribute("warn", "Not exist!");
             return false;

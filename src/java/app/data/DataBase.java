@@ -1,18 +1,19 @@
-/**
- * 负责数据库文件信息的增删改查的DataBase
- *
- * @version 	1.0
- * @author 	武家辉
- */
+/*
+* 模块:   数据层 <br>
+* 用途:   封装数据返回到控制层 <br>
+* 作者:   武家辉 wujh6@asiainfo.com <br>
+* 日期:   2016.08.16 <br>
+* 版权:   Copyright (c) 2004-2008 AsiaInfo Technologies(China),Inc. <br>
+* 版本:   RCS: $Id$ <br>
+* 说明:	 <br>
+* 历史:	武家辉 2016.09.15 合并查询函数，增加注释 <br>
+*/
+
 package app.data;
 
 import app.model.User;
-import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.ServletContext;
+
 
 public class DataBase {
     

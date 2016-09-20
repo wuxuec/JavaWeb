@@ -1,9 +1,13 @@
-/**
- * 监听会话被销毁的的UserSessionListener
- *
- * @version 	1.0
- * @author 	武家辉
- */
+/*
+* 模块:   功能层 <br>
+* 用途:   监听session的状态 <br>
+* 作者:   武家辉 wujh6@asiainfo.com <br>
+* 日期:   2016.08.18 <br>
+* 版权:   Copyright (c) 2004-2008 AsiaInfo Technologies(China),Inc. <br>
+* 版本:   RCS: $Id$ <br>
+* 说明:	 <br>
+* 历史:	 武家辉 2016.09.15 完善功能，增加注释<br>
+*/
 package app.util;
 
 import app.data.DataCache;
