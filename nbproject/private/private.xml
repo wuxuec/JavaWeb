@@ -5,14 +5,17 @@
         <group>
             <file>file:/H:/JavaWeb/src/java/app/controllers/LoginController.java</file>
             <file>file:/H:/JavaWeb/src/java/app/util/Admin.java</file>
+            <file>file:/H:/JavaWeb/src/java/app/model/User.java</file>
             <file>file:/H:/JavaWeb/web/password.jsp</file>
             <file>file:/H:/JavaWeb/web/register.jsp</file>
             <file>file:/H:/JavaWeb/web/info.jsp</file>
             <file>file:/H:/JavaWeb/src/java/app/util/UserSessionListener.java</file>
             <file>file:/H:/JavaWeb/web/WEB-INF/web.xml</file>
             <file>file:/H:/JavaWeb/web/META-INF/context.xml</file>
+            <file>file:/H:/JavaWeb/src/java/app/data/DataDisk.java</file>
             <file>file:/H:/JavaWeb/src/java/app/util/CookieUtil.java</file>
             <file>file:/H:/JavaWeb/src/java/app/controllers/RegisterController.java</file>
+            <file>file:/H:/JavaWeb/src/java/app/data/DataCache.java</file>
             <file>file:/H:/JavaWeb/web/script/onlineNumber.js</file>
             <file>file:/H:/JavaWeb/src/java/app/controllers/OnlineController.java</file>
             <file>file:/H:/JavaWeb/src/java/app/data/DataBase.java</file>

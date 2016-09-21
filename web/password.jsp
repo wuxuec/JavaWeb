@@ -38,7 +38,7 @@
             
             <div class="form-group">
                 <label for="exampleInputEmail1">Old Password</label>
-                <input type="text" name="origin" class="form-control" id="exampleInputEmail1" placeholder="old password">
+                <input type="text" name="old" class="form-control" id="exampleInputEmail1" placeholder="old password">
             </div>
             
             <div class="form-group">

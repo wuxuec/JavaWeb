@@ -28,7 +28,7 @@
         <form action="login" method="post">
             
             <div class="form-group">
-                <label for="exampleInputEmail1">Account Name</label>
+                <label for="exampleInputEmail1">Account</label>
                 <input type="text" name="account" class="form-control" 
                        id="exampleInputEmail1" placeholder="account"  value=${cookie.userCookie.value} >
             </div>
